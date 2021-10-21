@@ -41,7 +41,7 @@ private:
     Ui::inicio *ui;
 
     QGraphicsScene *scene1;
-    QGraphicsView *View2;
+    //QGraphicsView *View2;
 
     int h;
 
