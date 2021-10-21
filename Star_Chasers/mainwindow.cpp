@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "siguiente.h"
-//#include "inicio.h"
+#include "inicio.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,12 +22,11 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete scene1;
     delete scene2;
     delete Window2;
 }
 
-void MainWindow::setup_scene1()
+/*void MainWindow::setup_scene1()
 {
     srand(time(NULL)); //crear la semilla para el # aleatorio
 
@@ -55,13 +54,13 @@ void MainWindow::setup_scene1()
      time_enemy1->start(50);
 
 
-    /*scene1 = new QGraphicsScene;
+    scene1 = new QGraphicsScene;
     wind2 = new window2(600,800,2);
     scene1->setSceneRect(0,0,600,800);
     ui->View2->setScene(scene1);
-    scene1->addItem(wind2);*/
+    scene1->addItem(wind2);
 
-}
+}*/
 
 void MainWindow::setup_scene2()
 {
@@ -198,32 +197,12 @@ void MainWindow::on_Start_clicked()
             contrasena_.clear();
             complete.clear();
         }
-        //this->hide();
-       // ui->View2->hide();
-
-       //creacion de la otra ventana
-        /*siguiente * mainWindow = new siguiente ();
-        mainWindow-> show();
-        close();*/
-
-        /*borra los botones pero no las letras
-        ui->AgregarDatos->hide();
-        ui->Registrar->hide();
-        ui->usuario->hide();
-        ui->contrasenia->hide();
-        ui->Start->hide();
-        ui->IniciarSesion->hide();*/
-
-       /* inicio * Inicio = new inicio ();
+        inicio * Inicio = new inicio ();
         Inicio-> show();
-        close();*/
-
-        setup_scene1();
-
-    //}
+        close();
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *tecla) //movimiento del jugador
+/*void MainWindow::keyPressEvent(QKeyEvent *tecla) //movimiento del jugador
 {
    //el movimiento de un solo jugador se da con las teclas W S y se dispara con la tecla R
    //int x =personaje_->x(), y=personaje_->y(); //posicion xy del personaje (esto se usa para el disparo)
@@ -242,11 +221,11 @@ void MainWindow::keyPressEvent(QKeyEvent *tecla) //movimiento del jugador
    }
 
    if (tecla-> key() == Qt::Key_R){ //aqui se anade el objeto de la clase disparo
-      /* bombX->set_scale(tam,tam);
+       bombX->set_scale(tam,tam);
        bombX->setPos(x,y); //xy del personaje
        scene->addItem(bombX);
        timer->start(3000);//eliminar la bomba
-       bombX->timer-> start (250);// empezar a palpitar*/
+       bombX->timer-> start (250);// empezar a palpitar
    }
 
    //el movimiento del segundo jugador se da con las flechas de arriba y abajo y se dispara con la tecla P
@@ -274,12 +253,12 @@ void MainWindow::movimientos_enemigos()
         //int posX= enemy1[i]->x();// posY=enemy1[i]->y();
         enemy1[i]-> setX(enemy1[i]->x()-5);//PARA LA IZQUIERDA
 
-       /* esto lanza error
+        esto lanza error
             if(posX<0){
             scene1->removeItem( enemy1[i]);
            // enemy1[i]->remove();
 
-        }*/
+        }
 
         //si el personaje toca al enemigo -> eliminar personaje
         if (enemy1[i]->x()+tam >= personaje_->x() && enemy1[i]->x()-tam <=personaje_->x() && enemy1[i]->y()== personaje_->y()){
@@ -293,3 +272,4 @@ void MainWindow::movimientos_enemigos()
         }
     }
 }
+*/

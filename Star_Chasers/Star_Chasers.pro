@@ -15,7 +15,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     nivel1.cpp \
-    siguiente.cpp \
     window2.cpp
 
 HEADERS += \
@@ -24,14 +23,11 @@ HEADERS += \
     jugador1.h \
     mainwindow.h \
     nivel1.h \
-    siguiente.h \
     window2.h
 
 FORMS += \
     inicio.ui \
-    mainwindow.ui \
-    nivel1.ui \
-    siguiente.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

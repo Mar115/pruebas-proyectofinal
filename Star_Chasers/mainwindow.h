@@ -34,7 +34,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void setup_scene1();
+   // void setup_scene1();
     void setup_scene2();
     void setup_window2();
     void crear_txt(string name);
@@ -42,8 +42,8 @@ public:
     string leer_usuario(string name);
     void validar_usuario_contrasena();
 
-    void keyPressEvent(QKeyEvent *tecla);
-    void generar_enemy(enemigo1 *enemigo);
+   // void keyPressEvent(QKeyEvent *tecla);
+   // void generar_enemy(enemigo1 *enemigo);
 
 
 
@@ -53,7 +53,7 @@ private slots:
     void on_IniciarSesion_clicked();
     void on_Start_clicked();
 
-   void movimientos_enemigos();
+ //  void movimientos_enemigos();
 
 
 private:
@@ -66,11 +66,11 @@ private:
     int W1, H1, h;
     int vidas = 0;
 
-    nivel1 *mapa_1;
-    jugador1 *personaje_;
-    enemigo1 *enemy1[cantidad_enemigos];
+   // nivel1 *mapa_1;
+  //  jugador1 *personaje_;
+  //  enemigo1 *enemy1[cantidad_enemigos];
 
-    QTimer *time_enemy1;
+  //  QTimer *time_enemy1;
 
 
 };
