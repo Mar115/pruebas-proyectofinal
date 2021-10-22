@@ -14,7 +14,6 @@ SOURCES += \
     jugador1.cpp \
     main.cpp \
     mainwindow.cpp \
-    nivel1.cpp \
     window2.cpp
 
 HEADERS += \
@@ -22,7 +21,6 @@ HEADERS += \
     inicio.h \
     jugador1.h \
     mainwindow.h \
-    nivel1.h \
     window2.h
 
 FORMS += \

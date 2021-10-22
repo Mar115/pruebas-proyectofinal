@@ -4,5 +4,8 @@
         <file>images/mapa1.png</file>
         <file>images/nave.png</file>
         <file>images/enemigo1.png</file>
+        <file>images/level2.jpeg</file>
+        <file>images/jefe.jpg</file>
+        <file>images/enemigo2.png</file>
     </qresource>
 </RCC>

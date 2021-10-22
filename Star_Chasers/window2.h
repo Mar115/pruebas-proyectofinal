@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 //#define PATH_1 "../Star_Chasers/images/level2.jpeg"
+
 class window2: QObject, public QGraphicsPixmapItem //Herencia
 {
 public:
@@ -12,7 +13,6 @@ public:
 
 private:
     int w,h;
-
 };
 
 #endif // WINDOW2_H

@@ -11,6 +11,7 @@ public:
     enemigo1();
     void set_imagen();
     void set_scale(int a, int b); //función que me permite modificar la escala de una imagen
+    int size;
 
 private:
     QPixmap enemy1, imgn;
