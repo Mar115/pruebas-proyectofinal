@@ -12,7 +12,6 @@
 
 #include "window2.h"
 
-#include "nivel1.h"
 #include "jugador1.h"
 #include "enemigo1.h"
 

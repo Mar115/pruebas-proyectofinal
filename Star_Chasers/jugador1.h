@@ -19,7 +19,3 @@ private:
 
 #endif // JUGADOR1_H
 
-
-
-
-

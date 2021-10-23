@@ -46,7 +46,34 @@ void inicio::setup_scene1()
             lista_enemigos.push_back(enemigo);
      }
      generar_enemy( lista_enemigos);
-     time_enemy1->start(70);
+     time_enemy1->start(60);//70
+}
+
+void inicio::setup_scene2()
+{
+    time_enemyFinal = new QTimer; //timer para el jefe final
+    connect(time_enemyFinal,SIGNAL(timeout()),this,SLOT(movimiento_jefe()));
+
+    scene2 = new QGraphicsScene;
+    mapa_2 = new window2(ui->View2->width()-2,ui->View2->height()-2,3);
+    scene2->setSceneRect(0,0,ui->View2->width()-2,ui->View2->height()-2);
+    ui->View2->setScene(scene2);
+    scene2->addItem(mapa_2);
+    ui->View2->show();
+
+    personaje_->set_scale(tam,tam);
+    personaje_->setPos(0 ,0);
+    personaje_->set_imagen();
+    scene2->addItem(personaje_);
+
+    jefe_final = new enemigo1;
+    jefe_final->set_scale(tam,tam);
+    jefe_final->setPos((ui->View2->width()-2)/2,(ui->View2->height()-2)/2);
+    jefe_final->set_imagen(3);
+    scene2->addItem(jefe_final);
+    time_enemyFinal->start(1000);
+
+
 }
 
 void inicio::keyPressEvent(QKeyEvent *tecla)
@@ -97,7 +124,7 @@ void inicio::generar_enemy(QList<enemigo1*> lista_enemigos)
         if (!bandera) i--; //vuelve a repetir todo el proceso con el mismo elemento
         else {
             lista_enemigos[i]->setPos(aleatorioX, aleatorioY);
-            lista_enemigos[i]->set_imagen();
+            lista_enemigos[i]->set_imagen(1);
             scene1->addItem( lista_enemigos[i]);
         }
         bandera=true;
@@ -108,15 +135,28 @@ void inicio::movimientos_enemigos()
 {
     //Funcion que se encarga de crear los puntos (x,y) aleatorios de cada enemigo
 
+    bool vivo=true;
     for (int i=0; i<lista_enemigos.size(); i++){
-        int posX= lista_enemigos[i]->x();// posY=enemy1[i]->y();
+        lista_enemigos[i]->set_scale(tam,tam);
+        personaje_->set_scale(tam,tam);
+
         lista_enemigos[i]-> setX(lista_enemigos[i]->x()-5);//PARA LA IZQUIERDA
 
-        if ((personaje_->x()+tam >= lista_enemigos[i]->x()+tam && personaje_->x()-tam <= lista_enemigos[i]->x()+tam) && ((personaje_->y()-tam<=lista_enemigos[i]->y()+tam && personaje_->y()+tam >= lista_enemigos[i]->y()+tam ) || ( personaje_->y()+tam >=  lista_enemigos[i]->y()-tam &&  personaje_->y()+tam <= lista_enemigos[i]->y()+tam))){
+        float w=(lista_enemigos[i]->size)*0.5;
+        float x1=personaje_->x()+w,x2= lista_enemigos[i]->x()+w;
+        float y1=personaje_->y()+w,y2= lista_enemigos[i]->y()+w;
+        float dist=sqrt(pow((x2-x1),2)+pow((y2-y1),2));
+        if (dist<=sqrt(2)*lista_enemigos[i]->size) {
             scene1->removeItem(personaje_);
+            vivo=false;
+        }
+
+
+       // if ((personaje_->x()+tam >= lista_enemigos[i]->x()+tam && personaje_->x()-tam <= lista_enemigos[i]->x()+tam) && ((personaje_->y()-tam<=lista_enemigos[i]->y()+tam && personaje_->y()+tam >= lista_enemigos[i]->y()+tam ) || ( personaje_->y()+tam >=  lista_enemigos[i]->y()-tam &&  personaje_->y()+tam <= lista_enemigos[i]->y()+tam))){
+          //  scene1->removeItem(personaje_);
             //TERMINAR JUEGO, mostrar un cuadro de dialogo de que perdio
 
-            delete personaje_;//preguntar pq se muere el programa y pq no se pone esto en el destructor!!
+            //delete personaje_;//preguntar pq se muere el programa y pq no se pone esto en el destructor!!
 
            /* MainWindow * mainwindow = new MainWindow ();
             mainwindow -> show();*/
@@ -126,13 +166,31 @@ void inicio::movimientos_enemigos()
 
            // close();
 
-        }      
-        if(posX<0){
+        //}
+        if(lista_enemigos[i]->x()<0){
             scene1->removeItem( lista_enemigos[i]);
             delete lista_enemigos[i];
             lista_enemigos.removeAt(i);
-     }
-   }
+       }
+    }
+
+    if (lista_enemigos.size()==0 && vivo==true){
+        //crear un cuadro de dialogo (fase jefe final)
+
+        ui->View2->hide();
+       // scene1->removeItem(personaje_);
+       // setup_scene2(); // funcion para la fase de jefe final
+    }
 }
 
+void inicio::movimiento_jefe()
+{
+    jefe_final-> setY(jefe_final->y()+5);
+   /* if ( jefe_final->y()<0){
+        jefe_final-> setY(jefe_final->y()+5);
+    }*/
+
+   // if ( jefe_final->y()+(tam)<ui->View2->height()-2) jefe_final-> setY( jefe_final->y()-5);
+
+}
 
