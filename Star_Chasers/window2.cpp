@@ -6,7 +6,7 @@ window2::window2(int width, int heigth, int a)
     w = width;
 
     if (a==1){
-    QPixmap entrada(":/new/prefix1/images/inicioIM.png");
+    QPixmap entrada(":/new/prefix1/images/iniciom.png");
     setPixmap(entrada.scaled(w,h));
     }
 
@@ -16,7 +16,7 @@ window2::window2(int width, int heigth, int a)
     }
 
     if (a==3){
-    QPixmap entrada(":/new/prefix1/images/mapa2.png");
+    QPixmap entrada(":/new/prefix1/images/il2.png");
     setPixmap(entrada.scaled(w,h));
     }
 

@@ -10,6 +10,15 @@
     <height>625</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <weight>50</weight>
+    <bold>false</bold>
+   </font>
+  </property>
+  <property name="cursor">
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -26,6 +35,8 @@
     <property name="font">
      <font>
       <family>Algerian</family>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
    </widget>
@@ -677,6 +688,8 @@
      <font>
       <family>Lucida Calligraphy</family>
       <pointsize>36</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="text">
@@ -693,7 +706,7 @@
      <x>0</x>
      <y>0</y>
      <width>988</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

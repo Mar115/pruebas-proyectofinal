@@ -22,7 +22,8 @@ MainWindow::~MainWindow()
     delete ui;
     delete scene1;
     delete scene2;
-    delete Window2;
+    delete Window2;    
+    delete datos_vida_score;
 }
 
 void MainWindow::setup_scene2()
@@ -53,11 +54,11 @@ void MainWindow::crear_txt(string name)
     text.close();
 }
 
-void MainWindow::escribir_txt(string nombre, string user, string pass, int vidas)
+void MainWindow::escribir_txt(string nombre, string user, string pass, int vidas, int score)
 {
 
     fstream text(nombre, fstream::out | fstream::app);
-    text << user << "," << pass << "," << vidas << "\n";
+    text << user << "," << pass << "," << vidas << score << "\n";
     text.close();
 }
 
@@ -93,7 +94,7 @@ void MainWindow::on_AgregarDatos_clicked()
     ui->Start->setEnabled(false);
     ui->IniciarSesion->setEnabled(true);
 
-    escribir_txt(DataBase,usuario_.toStdString(),contrasena_.toStdString(), vidas);
+    escribir_txt(DataBase,usuario_.toStdString(),contrasena_.toStdString(), 3, 0);
 }
 
 void MainWindow::on_Registrar_clicked()
@@ -187,6 +188,3 @@ void MainWindow::on_Start_clicked()
         complete.clear();
     }
 }
-//HIDE: esconder los objetos dentro del graphicsView
-//ui->View2->hide();
-//ui->AgregarDatos->hide();
