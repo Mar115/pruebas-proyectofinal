@@ -200,7 +200,7 @@ void inicio::keyPressEvent(QKeyEvent *tecla)
         proyect_->setPos(personaje_->x()+tam*0.38, personaje_->y()+tam*0.38); //Se ubica el proyectil en la posición del personaje
         proyect_->set_imagen();        
         //AGREGAR PROYECTILES A LA SEGUNDA ESCENA
-        if(escena_de_disparos){
+        if(escena_de_disparos==true){
            scene1->addItem(proyect_);
            lista_proyectiles.push_back(proyect_);
            Time_Proyec->start(40);
@@ -234,18 +234,19 @@ void inicio::keyPressEvent(QKeyEvent *tecla)
 
 void inicio::ActivarMov_proyectil()
 {
-    if(escena_de_disparos){
     proyect_->movimiento_proyectil(lista_proyectiles,1);
     proyect2->movimiento_proyectil(lista_proyectilesJ2,1);
-    colisiones(lista_proyectiles,1);
-    colisiones(lista_proyectilesJ2,1);
+
+    if(escena_de_disparos==true){
+        colisiones(lista_proyectiles,1);
+        colisiones(lista_proyectilesJ2,1);
     }
-    else{
-        proyect_->movimiento_proyectil(lista_proyectiles,2);
-        proyect2->movimiento_proyectil(lista_proyectilesJ2,2);
-        colisiones(lista_proyectiles,2);
-        colisiones(lista_proyectilesJ2,2);
-    }
+
+    /*else{
+        colisiones(lista_proyectilesJ2,1);
+        //mofificar
+
+    }*/
 }
 
 void inicio::ActivarMov_proyectil_JF()
@@ -359,7 +360,7 @@ void inicio::colisiones(QList<proyectil *> &l, int a)
                if (vida==0){
                    //reiniciar el juego
                    ui->View2->hide(); //prueba para ver el cambio
-                   escena_de_disparos = false;
+
                }
            }
        }
@@ -406,6 +407,8 @@ void inicio::movimientos_enemigos()
             vivo=false;
             nivel_ +=1;
             ui->lcdNumber_4->display(nivel_);
+
+           escena_de_disparos = false;
    }
 }
 
