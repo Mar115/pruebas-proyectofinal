@@ -32,7 +32,6 @@ inicio::~inicio()
     delete asteroide_;
     delete timer_prueba;
     delete timer_prueba2;
-    //delete asteroide_;
 }
 
 void inicio::setup_scene1()
@@ -45,7 +44,7 @@ void inicio::setup_scene1()
     Time_Proyec = new QTimer; // timer para el proyectil
     connect(Time_Proyec,SIGNAL(timeout()),this,SLOT(ActivarMov_proyectil()));
 
-    timer_prueba = new QTimer;
+    timer_prueba = new QTimer; // timer para generar los movimientos de los asteroides
     connect(timer_prueba, SIGNAL(timeout()),this, SLOT(movimientos_asteroides()));
 
     timer_prueba2 = new QTimer;
@@ -199,10 +198,25 @@ void inicio::keyPressEvent(QKeyEvent *tecla)
         proyect_ = new proyectil(1);
         proyect_->set_scale(tam/3,tam/3);
         proyect_->setPos(personaje_->x()+tam*0.38, personaje_->y()+tam*0.38); //Se ubica el proyectil en la posición del personaje
-        proyect_->set_imagen();
+        proyect_->set_imagen();        
+        //AGREGAR PROYECTILES A LA SEGUNDA ESCENA
+        /*if(escena_de_disparos){
+           scene1->addItem(proyect_);
+           lista_proyectiles.push_back(proyect_);
+           Time_Proyec->start(40);
+        }
+        else{
+            scene2->addItem(proyect_);
+            lista_proyectiles.push_back(proyect_);
+            Time_Proyec->start(40);
+        }*/
+
         scene1->addItem(proyect_);
         lista_proyectiles.push_back(proyect_);
         Time_Proyec->start(40);
+
+
+
     }
     else if ( tecla-> key() == Qt::Key_P){        
         proyect2 = new proyectil(2);
@@ -220,16 +234,23 @@ void inicio::keyPressEvent(QKeyEvent *tecla)
 
 void inicio::ActivarMov_proyectil()
 {
+    if(escena_de_disparos){
     proyect_->movimiento_proyectil(lista_proyectiles,1);
     proyect2->movimiento_proyectil(lista_proyectilesJ2,1);
-
     colisiones(lista_proyectiles,1);
     colisiones(lista_proyectilesJ2,1);
+    }
+    else{
+        proyect_->movimiento_proyectil(lista_proyectiles,2);
+        proyect2->movimiento_proyectil(lista_proyectilesJ2,2);
+        colisiones(lista_proyectiles,2);
+        colisiones(lista_proyectilesJ2,2);
+    }
 }
 
 void inicio::ActivarMov_proyectil_JF()
 {
-    proyect3->movimiento_proyectil(lista_proyectilesJF,2);
+    proyect3->movimiento_proyectil(lista_proyectilesJF,2);    
     colisiones(lista_proyectilesJF,2);
 }
 
@@ -338,6 +359,7 @@ void inicio::colisiones(QList<proyectil *> &l, int a)
                if (vida==0){
                    //reiniciar el juego
                    ui->View2->hide(); //prueba para ver el cambio
+                   escena_de_disparos = false;
                }
            }
        }

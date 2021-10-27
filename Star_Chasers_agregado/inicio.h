@@ -55,6 +55,7 @@ public:
 
      short cambio=1;
 
+     bool escena_de_disparos = true;
     ~inicio();
 
 private slots:
