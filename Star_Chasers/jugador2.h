@@ -9,6 +9,7 @@ class jugador2 : public QObject, public QGraphicsPixmapItem //Herencia
 {
 public:
     jugador2();
+
     void set_imagen();
     void set_scale(int a, int b);
 

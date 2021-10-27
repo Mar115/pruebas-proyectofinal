@@ -18,6 +18,17 @@ void proyectil::set_scale(int a, int b)
     scaley = b;
 }
 
+void proyectil::movimiento_parabolico()
+{
+    float x,y;
+
+    x = xo+vxo*n*(0.001*T);
+    y = yo+vyo*n*(0.001*T)-0.5*g*n*(0.001*T)*n*(0.001*T);
+
+    //p->setPos(int(x),int(h-y-p->get_h()));
+    n++;
+}
+
 bool proyectil::activar(QList<enemigo1 *> *lista_enemigos, QGraphicsScene *escena)
 {
     bool bandera = false;
@@ -60,6 +71,14 @@ void proyectil::movimiento_proyectil(QList<proyectil *> lista_proyectiles, int a
         }
     }
 
+}
+
+void proyectil::generar_movParabolico()
+{
+    float x,y;
+    x = xo+vxo*n*(0.001*T);
+    y = yo+vyo*n*(0.001*T)-0.5*g*n*(0.001*T)*n*(0.001*T);
+    n++;
 }
 
 

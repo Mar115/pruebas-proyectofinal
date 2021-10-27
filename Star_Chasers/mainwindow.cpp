@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->usuario->setEnabled(false);
     ui->contrasenia->setEnabled(false);
     ui->Start->setEnabled(false);
-
 }
 
 MainWindow::~MainWindow()
@@ -37,10 +36,6 @@ void MainWindow::setup_scene2()
 
 void MainWindow::setup_window2()
 {
-
-    //PASOS: 1.Configurar la escena
-    //       2.Configurar la
-
     Window2 = new QMainWindow(this);//el this depende de la clase mainwindow
     //esta ventana va depender de la principal
 
@@ -75,8 +70,6 @@ string MainWindow::leer_usuario(string name)
     }
     else cout << "el archivo no pudo ser abierto";
     return datos;
-    //
-
 }
 
 void MainWindow::on_AgregarDatos_clicked()

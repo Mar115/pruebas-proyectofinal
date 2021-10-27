@@ -17,12 +17,10 @@ jugador1::~jugador1()
     delete time;
 }
 
-
 void jugador1::set_imagen()
 {
      setPixmap(img.scaled(scalex,scaley));
 }
-
 
 void jugador1::set_scale(int a, int b)
 {
@@ -40,6 +38,21 @@ void jugador1::movimientoJugador(bool band)
     }
 }
 
+bool jugador1::activar_enemigos(QList<enemigo1 *> *lista_enemigos, QGraphicsScene *escena)
+{
+    bool bandera = false;
+        for(int i=0; i<lista_enemigos->size(); i++){
+            if(collidesWithItem(lista_enemigos->at(i))){
+                escena->removeItem(lista_enemigos->at(i));
+                // se elimina de la escena
+                delete lista_enemigos->at(i);
+                lista_enemigos->removeAt(i); //se elimina del contenedor
+                bandera = true;
+            }
+        }
+        return bandera;
+}
+
 void jugador1::tiempo_mov()
 {
     if(bandera){
@@ -48,5 +61,6 @@ void jugador1::tiempo_mov()
         }
     }
     else setY(y()+5);
+
 }
 

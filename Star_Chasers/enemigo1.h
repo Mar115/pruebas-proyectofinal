@@ -5,6 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 
+
 class enemigo1  : public QObject, public QGraphicsPixmapItem
 {
 public:
