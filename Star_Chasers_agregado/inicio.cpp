@@ -286,7 +286,7 @@ void inicio::generar_asteroide(QList<asteroide*> lista_asteroides)
     bool bandera=true;
     int aleatorioX, aleatorioY;
     for (int i=0; i<lista_asteroides.size();i++ ){
-        lista_asteroides[i]->set_scale(tam/2,tam/2);
+        lista_asteroides[i]->set_scale(tam,tam);
 
         //se generarn los numeros aleatorios
         aleatorioX=(rand()%(ui->View2->width()-2));

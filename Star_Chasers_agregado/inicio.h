@@ -15,7 +15,6 @@
 #include<QGraphicsItem>
 
 #include "jugador1.h"
-#include "jugador2.h"
 #include "enemigo1.h"
 #include "window2.h"
 #include "proyectil.h"

@@ -10,7 +10,7 @@
         <file>images/personaje1.png</file>
         <file>images/il2.png</file>
         <file>images/iniciom.png</file>
-        <file>images/asteoroide.jpeg</file>
         <file>images/proyectil_Jf.png</file>
+        <file>images/asteroide.png</file>
     </qresource>
 </RCC>
