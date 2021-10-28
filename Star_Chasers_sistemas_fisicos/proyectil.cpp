@@ -21,8 +21,8 @@ void proyectil::set_scale(int a, int b)
 void proyectil::movimiento_parabolico()
 {
     float x,y;
-    y = xo+vxo*n*(T);
-    x = yo+vyo*n*(T)-0.5*g*n*(T)*n*(T);
+    x = xo+vxo*n*(T);
+    y = yo+vyo*n*(T)-0.5*g*n*(T)*n*(T);
     setPos(int(x),int(y));
     n++;
 }
