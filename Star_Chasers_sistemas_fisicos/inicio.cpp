@@ -113,15 +113,11 @@ void inicio::setup_scene2()
     ui->View2->show();
 
     //creacion del personaje
-
     personaje_->setPos(0 ,0);
-
     scene2->addItem(personaje_);
 
     //creacion personaje 2
-
     personaje2_->setPos(0, ui->View2->height()-tam);
-
     scene2->addItem(personaje2_);
 
     //creacion del jefe final
@@ -143,50 +139,39 @@ void inicio::keyPressEvent(QKeyEvent *tecla)
     //El movimiento del segundo jugador se da con las flechas de arriba y abajo y se dispara con la tecla P
 
     if (tecla-> key() == Qt:: Key_W) {  //movimiento hacia arriba
-        if(personaje_->y()>0){
+        //if(personaje_->y()>0){
             personaje_->movimientoJugador(true);}
-    }
+    //}
 
     else if (tecla-> key() == Qt:: Key_S) { //movimiento hacia abajo
-        if (personaje_->y()+(tam) < ui->View2->height()-2){
-            personaje_->movimientoJugador(false);
-        }
+        personaje_->movimientoJugador(false);
     }
 
     else if (tecla->key() == Qt:: Key_A){
-        if (personaje_->x()>0){
-            personaje_->movimientoJugador_AD(true);
-        }
+        personaje_->movimientoJugador_AD(true);
     }
 
     else if ( tecla->key() == Qt:: Key_D){
-        if (personaje_->x() < ui->View2->width()-2){
-            personaje_->movimientoJugador_AD(false);
-        }
+        personaje_->movimientoJugador_AD(false);
     }
 
     else if ( tecla-> key() == Qt::Key_8){
-        if ( personaje2_->y()>0){
-            personaje2_->movimientoJugador(true);
-        }
+        personaje2_->movimientoJugador(true);
+
     }
 
     else if ( tecla->key() == Qt::Key_5){
-        if (personaje2_->y()+(tam)<ui->View2->height()-2){
-            personaje2_->movimientoJugador(false);
-        }    
+        personaje2_->movimientoJugador(false);
+
     }
 
     else if (tecla->key() == Qt:: Key_4){
-        if (personaje2_->x()>0){
-            personaje2_->movimientoJugador_AD(true);
-        }
+        personaje2_->movimientoJugador_AD(true);
     }
 
     else if ( tecla->key() == Qt:: Key_6){
-        if (personaje2_->x() < ui->View2->width()-2){
-            personaje2_->movimientoJugador_AD(false);
-        }
+        personaje2_->movimientoJugador_AD(false);
+
     }
     //ESTOS BOTONES SON PARA GENERAR LOS PROYECTILES DE LOS PERSONAJES
 
@@ -196,7 +181,7 @@ void inicio::keyPressEvent(QKeyEvent *tecla)
         proyect_->setPos(personaje_->x()+tam*0.38, personaje_->y()+tam*0.38); //Se ubica el proyectil en la posición del personaje
         proyect_->set_imagen();        
         //AGREGAR PROYECTILES A LA SEGUNDA ESCENA
-        if(escena_de_disparos){
+        if(escena_de_disparos==true){
            scene1->addItem(proyect_);
            lista_proyectiles.push_back(proyect_);
            Time_Proyec->start(40);
@@ -206,13 +191,6 @@ void inicio::keyPressEvent(QKeyEvent *tecla)
             lista_proyectiles.push_back(proyect_);
             Time_Proyec->start(40);
         }
-
-       // scene1->addItem(proyect_);
-        //lista_proyectiles.push_back(proyect_);
-       // Time_Proyec->start(40);
-
-
-
     }
     else if ( tecla-> key() == Qt::Key_P){        
         proyect2 = new proyectil(2);
@@ -230,6 +208,16 @@ void inicio::keyPressEvent(QKeyEvent *tecla)
 
 void inicio::ActivarMov_proyectil()
 {
+    proyect_->movimiento_proyectil(lista_proyectiles,1);
+        proyect2->movimiento_proyectil(lista_proyectilesJ2,1);
+
+        if(escena_de_disparos==true){
+            colisiones(lista_proyectiles,1);
+            colisiones(lista_proyectilesJ2,1);
+        }
+        else{
+            colisiones(lista_proyectiles, 3);
+        }/*
     if(escena_de_disparos){
     proyect_->movimiento_proyectil(lista_proyectiles,1);
     proyect2->movimiento_proyectil(lista_proyectilesJ2,1);
@@ -241,12 +229,12 @@ void inicio::ActivarMov_proyectil()
         proyect2->movimiento_proyectil(lista_proyectilesJ2,2);
         colisiones(lista_proyectiles,2);
         colisiones(lista_proyectilesJ2,2);
-    }
+    }*/
 }
 
 void inicio::ActivarMov_proyectil_JF()
 {
-    proyect3->movimiento_proyectil(lista_proyectilesJF,2);    
+    proyect3->movimiento_proyectil(lista_proyectilesJF,2);
 
 }
 
@@ -345,7 +333,7 @@ void inicio::colisiones(QList<proyectil *> &l, int a)
                 l.removeAt(j);
                 puntaje1+=100;
             }
-        };
+        }
         ui->lcdNumber_2->display(puntaje1);
         }
 
@@ -362,11 +350,26 @@ void inicio::colisiones(QList<proyectil *> &l, int a)
                if (vida==0){
                    //reiniciar el juego
                    ui->View2->hide(); //prueba para ver el cambio
-                   escena_de_disparos = false;
+                   //escena_de_disparos = false;
                }
            }
-       }
+       }       
     }
+    if (a==3){
+            for (int j=0;j<l.size() ;j++ ) {
+                if(l[j]->activar_ganar( jefe_final)){
+                    scene2->removeItem(l[j]);
+                    delete l[j];
+                    l.removeAt(j);
+
+                    puntaje1+=5;
+                    ui->lcdNumber_2->display(puntaje1);
+                    //cuadro de dialogo (GANO)
+                    //llevar al ingreso de usuario
+                    //ui->View2->hide(); //prueba para ver el cambio
+                }
+            }
+        }
 }
 
 void inicio::colisiones_enemigos(QList<jugador1 *> &l)
@@ -409,6 +412,7 @@ void inicio::movimientos_enemigos()
             vivo=false;
             nivel_ +=1;
             ui->lcdNumber_4->display(nivel_);
+            escena_de_disparos = false;
    }
 }
 
@@ -423,8 +427,6 @@ void inicio::movimiento_jefe()
         generar_proyectil_JF();
         contadorJF = 0;
     }
-
-    //TENER CUIDADO CON LAS CONDICIONES DE LOS BORDES
 }
 
 void inicio::movimientoProyectil_jefe()
@@ -442,30 +444,3 @@ void inicio::movimientos_asteroides()
     }
 }
 
-/*
-
-//    ECUACIONES DE MOV CIRCULAR UNIFORME:
-//    X(n)=(X(n-1)-Cx)*cos(wT)-(Y(n-1)-cy)*sen(wT)+cx
-//    Y(n)=(Y(n-1)-Cy)*cos(wT)+(X(n-1)-cx)*sen(wT)+cy
-    float aux,auxy;
-    aux=posx-cx;
-    auxy=posy-cy;
-    posx=(aux)*cos(w*t)-(auxy)*sin(w*t)+cx;
-    posy=(auxy)*cos(w*t)+(aux)*sin(w*t)+cy;
-   // posx=posx+100;
-
-    setPos(int(posx),int(posy));
-
-
-    X= R(circulo)*Cos(wNT)+ Xo
-    Y= R(circulo)*Sen(wNT)+ Yo
-    N-->contador --- > trabajarlo como entero
-    */
-
-
-/* ECUACIONES DE MOV PARABOLICO:
- *     float x,y;
-
-    x = xo+vxo*n*(0.001*T);
-    y = yo+vyo*n*(0.001*T)-0.5*g*n*(0.001*T)*n*(0.001*T);
-    */

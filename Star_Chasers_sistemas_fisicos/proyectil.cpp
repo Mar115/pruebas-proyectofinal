@@ -21,8 +21,8 @@ void proyectil::set_scale(int a, int b)
 void proyectil::movimiento_parabolico()
 {
     float x,y;
-    x = xo+vxo*n*(T);
-    y = yo+vyo*n*(T)-0.5*g*n*(T)*n*(T);
+    y = xo+vxo*n*(T);
+    x = yo+vyo*n*(T)-0.5*g*n*(T)*n*(T);
     setPos(int(x),int(y));
     n++;
 }
@@ -75,6 +75,15 @@ void proyectil::movimiento_proyectil(QList<proyectil *> lista_proyectiles, int a
         }
     }
 
+}
+
+bool proyectil::activar_ganar(enemigo1 *jefe_final)
+{
+    bool bandera=false;
+          if(collidesWithItem(jefe_final)){
+              bandera=true;
+          }
+      return bandera;
 }
 
 

@@ -25,15 +25,15 @@ public:
 public slots:
     bool activar(QList <enemigo1 *> *lista_enemigos, QGraphicsScene *escena);
     bool activar_JF (QList<jugador1 *> *lista_jugadores, QGraphicsScene *escena);
-
     void movimiento_proyectil(QList<proyectil *> lista_proyectiles, int a );
+    bool activar_ganar( enemigo1 *jefe_final);
 
 private:
     QPixmap proyectil_;
     int scalex =1, scaley= 1;
 
     //Variables para las ecuaciones de movimiento parabólico
-    float xo,yo, vxo = 4.5, vyo = 5, g = 1, T = 1; //velocidad(x,y) y gravedad constantes, posicion(x,y) varían
+    float xo,yo, vxo = 10, vyo = 5, g = 1, T = 1; //velocidad(x,y) y gravedad constantes, posicion(x,y) varían
     unsigned long long n=0;
 };
 
