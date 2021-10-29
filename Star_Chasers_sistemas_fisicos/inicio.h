@@ -14,11 +14,18 @@
 #include <QObject>
 #include<QGraphicsItem>
 
+//#include<QSoundEffect>
+#include <QMediaPlayer>
+
 #include "jugador1.h"
 #include "enemigo1.h"
 #include "window2.h"
 #include "proyectil.h"
 #include "asteroide.h"
+
+#include  "dialog.h"
+
+
 //#include "variables_globales.h"
 
 #define tam 50
@@ -54,6 +61,8 @@ public:
      int vida     = 6;
      int nivel_   = 1;
 
+     int contador_jefe=0;
+
      bool cambiar = false;
      bool vivo=true;
 
@@ -65,7 +74,7 @@ public:
 private slots:
    void movimientos_enemigos();
    void ActivarMov_proyectil();
-   void ActivarMov_proyectil_JF();
+   //void ActivarMov_proyectil_JF();
    void activar_colisiones();
 
    //void activar_jefe();
@@ -102,6 +111,8 @@ private:
     QTimer *time_enemy1, *time_enemyFinal;
     QTimer *Time_Proyec, *Time_ProyecJF;
     QTimer *tempo, *timer_prueba, *timer_colision;
+
+     QMediaPlayer *bsound;
 
     };
 

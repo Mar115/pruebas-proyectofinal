@@ -163,6 +163,7 @@ void MainWindow::on_Start_clicked()
             //Llamar a la clase que contiene la escena del juego
             inicio * Inicio = new inicio ();
             Inicio-> show();
+            //ui->View2->hide();
             close();
         }
         else{

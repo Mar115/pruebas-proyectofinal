@@ -38,8 +38,7 @@ bool proyectil::activar(QList<enemigo1 *> *lista_enemigos, QGraphicsScene *escen
     bool bandera = false;
     for(int i=0; i<lista_enemigos->size(); i++){
         if(collidesWithItem(lista_enemigos->at(i))){
-            escena->removeItem(lista_enemigos->at(i));
-            // se elimina de la escena
+            escena->removeItem(lista_enemigos->at(i)); // se elimina de la escena
             delete lista_enemigos->at(i);
             lista_enemigos->removeAt(i); //se elimina del contenedor
             bandera = true;
@@ -48,21 +47,59 @@ bool proyectil::activar(QList<enemigo1 *> *lista_enemigos, QGraphicsScene *escen
     return bandera;
 }
 
-bool proyectil::activar_JF(QList<jugador1 *> *lista_jugadores, QGraphicsScene *escena)
+bool proyectil::activar_JF(QList<jugador1 *> *lista_jugadores)
 {
     bool bandera=false;
     for (int i=0; i<lista_jugadores->size(); i++){
         if(collidesWithItem(lista_jugadores->at(i))){
-            /*escena->removeItem(lista_jugadores->at(i));
-            delete lista_jugadores->at(i);
-            lista_jugadores-> removeAt(i);*/
             bandera=true;
         }
     }
     return bandera;
 }
 
-void proyectil::movimiento_proyectil(QList<proyectil *> lista_proyectiles, int a)
+bool proyectil::activar_asteroide(QList<asteroide*> *lista_asteroides, QGraphicsScene *escena)
+{
+    bool bandera = false;
+    for(int i=0; i<lista_asteroides->size(); i++){
+        if(collidesWithItem(lista_asteroides->at(i))){
+            escena->removeItem(lista_asteroides->at(i)); // se elimina de la escena
+            delete lista_asteroides->at(i);
+            lista_asteroides->removeAt(i); //se elimina del contenedor
+            bandera = true;
+        }
+    }
+    return bandera;
+}
+
+void proyectil::movimiento_proyectil(QList<proyectil *> lista_proyectiles, int a )
+{ // QGraphicsScene *escena
+    if (a==1){
+        for(int i = 0; i<lista_proyectiles.size(); i++){
+            lista_proyectiles[i]->setX(lista_proyectiles[i]->x()+5);  //SE MUEVE DE MANERA RECTILINEA
+            /*if(lista_proyectiles[i]->x()<0){ //lista_enemigos[i]->x()
+                if(escena_de_disparos==true){
+                    scene1->removeItem( lista_proyectiles[i]);
+                    delete lista_proyectiles[i];
+                    lista_proyectiles.removeAt(i);
+                 }
+                else{
+                    scene2->removeItem( lista_proyectiles[i]);
+                    delete lista_proyectiles[i];
+                    lista_proyectiles.removeAt(i);
+                }
+            }*/
+        }
+    }
+
+    else if (a==2) {
+            for(int i = 0; i<lista_proyectiles.size(); i++){
+                lista_proyectiles[i]->setX(lista_proyectiles[i]->x()-5);  //SE MUEVE DE MANERA RECTILINEA
+            }
+        }
+}
+
+/*void proyectil::movimiento_proyectil(QList<proyectil *> lista_proyectiles, int a)
 {
     if (a==1){
         for(int i = 0; i<lista_proyectiles.size(); i++){
@@ -75,7 +112,7 @@ void proyectil::movimiento_proyectil(QList<proyectil *> lista_proyectiles, int a
         }
     }
 
-}
+}*/
 
 bool proyectil::activar_ganar(enemigo1 *jefe_final)
 {

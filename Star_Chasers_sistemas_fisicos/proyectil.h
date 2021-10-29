@@ -6,6 +6,7 @@
 #include <QPixmap>
 #include "enemigo1.h"
 #include "jugador1.h"
+#include "asteroide.h"
 
 #include <QList>
 #include <QGraphicsScene>
@@ -24,9 +25,11 @@ public:
 
 public slots:
     bool activar(QList <enemigo1 *> *lista_enemigos, QGraphicsScene *escena);
-    bool activar_JF (QList<jugador1 *> *lista_jugadores, QGraphicsScene *escena);
+    bool activar_JF (QList<jugador1 *> *lista_jugadores);
     void movimiento_proyectil(QList<proyectil *> lista_proyectiles, int a );
     bool activar_ganar( enemigo1 *jefe_final);
+    bool activar_asteroide(QList<asteroide*> *lista_asteroides, QGraphicsScene *escena);
+
 
 private:
     QPixmap proyectil_;
