@@ -16,9 +16,9 @@ public:
     ~asteroide();   
     void set_imagen();
     void set_scale(int a, int b);
-    int size;
     void movimientos_asteroides();
     void setCenter(int a, int b);
+    int size;
 
 private:
     QPixmap asteroide_;

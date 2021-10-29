@@ -9,7 +9,6 @@ class window2: QObject, public QGraphicsPixmapItem //Herencia
 {
 public:
     window2(int width, int heigth, int a);
-
     int get_h();
 
 private:

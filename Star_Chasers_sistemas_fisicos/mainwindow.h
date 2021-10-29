@@ -37,13 +37,11 @@ public:
     void setup_window2();
     void crear_txt(string name);
     void escribir_txt(string nombre, string user, string pass);
-
     void validar_usuario_contrasena();
-    string leer_usuario(string name);
-    QDialog *fin;
-
     void reescribir_txt(string nombre, string user, string pass, int life, int puntaje);
 
+    string leer_usuario(string name);
+    QDialog *fin;
 
 private slots:
     void on_AgregarDatos_clicked();
@@ -59,7 +57,6 @@ private:
     QMainWindow *Window2; //Ventana #2
     QGraphicsView *View2, *View1;
     inicio *datos_vida_score;
-
 
     int W1, H1, h;    
 

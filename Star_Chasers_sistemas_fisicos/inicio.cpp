@@ -93,7 +93,6 @@ void inicio::setup_scene1()
      }
      generar_asteroide( lista_asteroides);
      timer_prueba->start(90);//velocidad de su movimiento
-     //movimientos_asteroides();
 }
 
 void inicio::setup_scene2()
@@ -130,10 +129,19 @@ void inicio::setup_scene2()
     time_enemyFinal->start(30);
     Time_ProyecJF->start(40);
 
+    //creacion de los asteroides
+    asteroide *asteroide_;
+    for (int j=0;j<cantidad_asteroides;j++ ) {
+        asteroide_=new asteroide;
+        lista_asteroides.push_back(asteroide_);
+    }
+    generar_asteroide( lista_asteroides);
+    timer_prueba->start(90);//velocidad de su movimiento
+
 }
 
 void inicio::keyPressEvent(QKeyEvent *tecla)
-{ //Funcion para generar el movimiento del personaje a partir de las teclas
+{   //Funcion para generar el movimiento del personaje a partir de las teclas
 
     //El movimiento de un solo jugador se da con las teclas W S y se dispara con la tecla R
     //El movimiento del segundo jugador se da con las flechas de arriba y abajo y se dispara con la tecla P
@@ -247,11 +255,6 @@ void inicio::ActivarMov_proyectil()
     }
 }
 
-/*void inicio::ActivarMov_proyectil_JF()
-{
-    proyect3->movimiento_proyectil(lista_proyectilesJF,2);
-}*/
-
 void inicio::activar_colisiones()
 {
    colisiones_enemigos(jugadores);
@@ -300,27 +303,23 @@ void inicio::generar_proyectil_JF()
     lista_proyectilesJF.push_back(proyect3);
 
     //Eliminar de la memoria dinamica las balas del jefe final (ESTO SI ESTA BIEN AQUI??!)
-    /*for (int i=0; i<lista_proyectilesJF.size(); i++){
-        if(lista_proyectilesJF[i]->x()<0){
+    for (int i=0; i<lista_proyectilesJF.size(); i++){
+        if(lista_proyectilesJF[i]->y()+(tam)>ui->View2->height()-2){
             scene2->removeItem( lista_proyectilesJF[i]);
             delete lista_proyectilesJF[i];
             lista_proyectilesJF.removeAt(i);
        }
-    }*/
+    }
 
 }
 
 void inicio::generar_asteroide(QList<asteroide*> lista_asteroides)
 {  //Funcion que se encarga de generar las posiciones aleatorias de (x,y) para ubicar los asteroides en el juego
 
-    bool bandera=true;
     int aleatorioX = 0 , aleatorioY = 0 ;
-
-    for (int i=0, j=0; i<lista_asteroides.size();i++, j+=200 ){
+    for (int i=0; i<lista_asteroides.size();i++){
         lista_asteroides[i]->set_scale(tam,tam);
-        //se generarn los numeros aleatorios        
-        //aleatorioX=(rand()%(ui->View2->width()-2));
-        //aleatorioY = rand()%((ui->View2->height()-2)-2*tam);
+
         aleatorioX += 200;
         aleatorioY += 100;
 
@@ -328,42 +327,33 @@ void inicio::generar_asteroide(QList<asteroide*> lista_asteroides)
         lista_asteroides[1]->setCenter(800,400);
         lista_asteroides[2]->setCenter(700,100);
 
-        for (int j=0; j<i ;j++){ //j son los objetos ya creados
-           float w=(lista_asteroides[i]->size)*0.5;
-           // coordenadas de los centros
-           float x1=lista_asteroides[j]->x()+w,x2=aleatorioX+w;
-           float y1=lista_asteroides[j]->y()+w,y2=aleatorioY+w;
-           float dist=sqrt(pow((x1-x2),2)+pow((y1-y2),2)); //formula de la distancia entre los centros
-
-           //comprobar que las imagenes no esten una encima de otra
-           if (dist<=sqrt(2)*lista_asteroides[i]->size) bandera=false;
+        lista_asteroides[i]->setPos(aleatorioX, aleatorioY);
+        lista_asteroides[i]->set_imagen();
+        if(escena_de_disparos==true){
+           scene1->addItem( lista_asteroides[i]);
         }
-        if (!bandera) i--; //vuelve a repetir todo el proceso con el mismo elemento
-        else {
-            lista_asteroides[i]->setPos(aleatorioX, aleatorioY);
-            lista_asteroides[i]->set_imagen();
-            scene1->addItem( lista_asteroides[i]);
+        else{
+            scene2->addItem( lista_asteroides[i]);
         }
-        bandera=true;
     }
-    //aleatX=(rand()%(ui->View2->width()-2));
-    //aleatY = rand()%((ui->View2->height()-2)-2*tam);
 }
 
 void inicio::colisiones(QList<proyectil *> &l, int a)
 {
     if (a==1){
+        //colision entre las balas de los jugadores y los enemigos
         for (int j=0;j<l.size() ;j++ ) {
             if(l[j]->activar(&lista_enemigos,scene1)){
                 scene1->removeItem(l[j]);
                 delete l[j];
                 l.removeAt(j);
-                puntaje1+=100;
+                puntaje1+=10;
                 ui->lcdNumber_2->display(puntaje1);
             }
         }
     }
     if(a==2) {
+       //colision entre las balas del jefe final y los jugadores
        for (int i=0; i< l.size(); i++){
            if (l[i]->activar_JF(&jugadores)){
                scene2->removeItem(l[i]);
@@ -382,12 +372,13 @@ void inicio::colisiones(QList<proyectil *> &l, int a)
        }       
     }
     if (a==3){
+        //colision entre las balas de los jugadores y el jefe final
             for (int j=0;j<l.size() ;j++ ) {
                 if(l[j]->activar_ganar( jefe_final)){
                     scene2->removeItem(l[j]);
                     delete l[j];
                     l.removeAt(j);
-                    puntaje1+=500;
+                    puntaje1+=50;
                     ui->lcdNumber_2->display(puntaje1);
                     if (contador_jefe==5){
                         //cuadro de dialogo (GANO)
@@ -401,12 +392,13 @@ void inicio::colisiones(QList<proyectil *> &l, int a)
             }
     }
     if(a==4) {
+        //colision entre las balas de los jugadores y los asteroides
         for (int i=0; i< l.size(); i++){
             if (l[i]->activar_asteroide(&lista_asteroides, scene1)){
                 scene1->removeItem(l[i]);
                 delete l[i];
                 l.removeAt(i);
-                puntaje1+=10;
+                puntaje1+=20;
                 ui->lcdNumber_2->display(puntaje1);
                 }
             }
@@ -414,7 +406,8 @@ void inicio::colisiones(QList<proyectil *> &l, int a)
 }
 
 void inicio::colisiones_enemigos(QList<jugador1 *> &l)
-{
+{   //colision entre los jugadores y los enemigos
+
     for (int j=0;j<l.size() ;j++ ) {
          if(l[j]->activar_enemigos(&lista_enemigos,scene1)){
             vida-=1;
@@ -440,14 +433,14 @@ void inicio::movimientos_enemigos()
 {
     for (int i=0; i<lista_enemigos.size(); i++){
         lista_enemigos[i]-> setX(lista_enemigos[i]->x()-5);//PARA LA IZQUIERDA
-        if(lista_enemigos[i]->x()<0){ //lista_enemigos[i]->x()
+        if(lista_enemigos[i]->x()<0){ //eliminar enemigos una vez toquen el fin de la escena
             scene1->removeItem( lista_enemigos[i]);
             delete lista_enemigos[i];
             lista_enemigos.removeAt(i);
      }
    }
    if (lista_enemigos.size()==0  && lista_asteroides.size()==0 && vivo==true){
-            //crear un cuadro de dialogo (fase jefe final)
+            //se pasa al siguiente nivel
             cambiar = true;
             ui->View2->hide();
             setup_scene2(); // funcion para la fase de jefe final

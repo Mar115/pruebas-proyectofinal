@@ -13,7 +13,7 @@ public:
     void set_imagen(int a);
     void set_scale(int a, int b); //función que me permite modificar la escala de una imagen
     int size;
-    //Generar movimiento del jefe en esta clase
+
 private:
     QPixmap enemy1, imgn, enemy2, jefe_final;
     int scalex = 1, scaley=1;

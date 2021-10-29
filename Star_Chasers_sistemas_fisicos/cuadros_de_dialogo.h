@@ -11,6 +11,7 @@ class cuadros_de_dialogo: public QObject, public QGraphicsPixmapItem
 public:
     cuadros_de_dialogo(int width, int heigth);
     int get_h();
+
 private:
     int w,h;
 };
