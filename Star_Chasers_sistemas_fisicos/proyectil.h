@@ -22,6 +22,8 @@ public:
     void set_scale(int a, int b);
     void movimiento_parabolico();
     void setOriginal(int a, int b);
+    void colision_elastica();
+    void get_h(int h);
 
 public slots:
     bool activar(QList <enemigo1 *> *lista_enemigos, QGraphicsScene *escena);
@@ -38,6 +40,7 @@ private:
     //Variables para las ecuaciones de movimiento parabólico
     float xo,yo, vxo = 10, vyo = 5, g = 1, T = 1; //velocidad(x,y) y gravedad constantes, posicion(x,y) varían
     unsigned long long n=0;
+    int H;
 };
 
 #endif // PROYECTIL_H

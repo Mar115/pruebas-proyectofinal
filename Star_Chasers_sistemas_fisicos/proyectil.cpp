@@ -21,9 +21,9 @@ void proyectil::set_scale(int a, int b)
 void proyectil::movimiento_parabolico()
 {
     float x,y;
-    x = xo+vxo*n*(T);
-    y = yo+vyo*n*(T)-0.5*g*n*(T)*n*(T);
-    setPos(int(x),int(y));
+    x = xo-vxo*n*(T);
+    y = yo+vyo*n*(T)-0.5*g*n*(T)*n*(T);    
+    setPos(int(x),2*yo-int(y));
     n++;
 }
 
@@ -31,6 +31,17 @@ void proyectil::setOriginal(int a, int b)
 {
     xo=a;
     yo=b;
+}
+
+void proyectil::colision_elastica()
+{
+    float Vini,Vfin;
+
+}
+
+void proyectil::get_h(int h)
+{
+    H = h;
 }
 
 bool proyectil::activar(QList<enemigo1 *> *lista_enemigos, QGraphicsScene *escena)

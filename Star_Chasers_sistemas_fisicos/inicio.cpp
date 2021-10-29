@@ -291,6 +291,7 @@ void inicio::generar_enemy(QList<enemigo1*> lista_enemigos)
 void inicio::generar_proyectil_JF()
 {
     proyect3 = new proyectil(3);
+    proyect3->get_h(ui->View2->height());
     proyect3->set_scale(tam*0.3,tam*0.3);
     proyect3->setPos(jefe_final->x(), jefe_final->y()); //Se ubica el proyectil en la posición del jefe //
     proyect3->set_imagen();
@@ -462,7 +463,7 @@ void inicio::movimiento_jefe()
 
     if ( jefe_final->y()<=0) cambio=1;
     else if ( jefe_final->y()+(tam)>ui->View2->height()-2)cambio=-1;
-    jefe_final-> setY(jefe_final->y()+5*cambio);
+    jefe_final-> setY((jefe_final->y()+5*cambio));
     contadorJF++;
     if(contadorJF==25){
         generar_proyectil_JF();
